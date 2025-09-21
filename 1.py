@@ -178,7 +178,6 @@ def get_css(theme_name="ソフトブルー"):
         font-weight: 400;
     }}
     
-    /* 目標表示カード */
     .goals-overview {{
         background: {theme['card']};
         padding: 1.5rem;
@@ -362,7 +361,77 @@ def get_css(theme_name="ソフトブルー"):
         box-shadow: 0 6px 20px {theme['shadow']};
     }}
     
-    /* セレクトボックスのスタイル改善 */
+    /* ボトムナビゲーション */
+    .bottom-nav {{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: {theme['card']};
+        border-top: 1px solid {theme['border']};
+        padding: 0.8rem 1rem;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 -2px 20px {theme['shadow']};
+    }}
+    
+    .nav-container {{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        max-width: 600px;
+        margin: 0 auto;
+    }}
+    
+    .nav-item {{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        color: {theme['text_secondary']};
+        text-decoration: none;
+        min-width: 60px;
+    }}
+    
+    .nav-item:hover {{
+        background: rgba(255, 255, 255, 0.1);
+        color: {theme['primary']};
+    }}
+    
+    .nav-item.active {{
+        color: {theme['primary']};
+        background: rgba(255, 255, 255, 0.15);
+    }}
+    
+    .nav-icon {{
+        font-size: 1.4rem;
+        margin-bottom: 0.2rem;
+    }}
+    
+    .nav-text {{
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-align: center;
+    }}
+    
+    /* メインコンテンツの下部余白を追加 */
+    .main-content {{
+        padding-bottom: 100px;
+    }}
+    
+    /* サイドバーを非表示 */
+    .stSidebar {{
+        display: none !important;
+    }}
+    
+    /* メインコンテンツ幅を調整 */
+    .stAppViewContainer > .main > div {{
+        max-width: none !important;
+        padding: 1rem 2rem;
+    }}
     .stSelectbox > div > div {{
         background: {theme['card']};
         border: 1px solid {theme['border']};
