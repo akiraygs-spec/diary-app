@@ -20,7 +20,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 淡色テーマカラー定義（6種類、より淡く優しい色合い）
+# 淡色テーマカラー定義
 THEME_PALETTES = {
     "ソフトブルー": {
         "primary": "#87ceeb",
@@ -86,57 +86,64 @@ THEME_PALETTES = {
         "border": "rgba(255, 218, 185, 0.3)",
         "shadow": "rgba(255, 218, 185, 0.2)",
         "gradient": "linear-gradient(135deg, #fffefa 0%, #fff8dc 100%)"
-    },
-    "クラウドグレー": {
-        "primary": "#d3d3d3",
-        "secondary": "#dcdcdc",
-        "accent": "#f8f8ff",
-        "background": "#fafafa",
-        "surface": "#f7f7f7",
-        "card": "rgba(247, 247, 247, 0.9)",
-        "text_primary": "#696969",
-        "text_secondary": "#808080",
-        "border": "rgba(211, 211, 211, 0.4)",
-        "shadow": "rgba(211, 211, 211, 0.2)",
-        "gradient": "linear-gradient(135deg, #fafafa 0%, #f8f8ff 100%)"
     }
 }
 
-# 心模様の定義（5色×4種類 = 20種類、感情別に整理）
+# 心模様の定義（5色×5種類 = 25種類、感情別に整理）
 MOOD_OPTIONS = {
-    "ポジティブ": [
-        {"name": "喜び", "color": "#87ceeb", "intensity": 5},
-        {"name": "幸福", "color": "#87ceeb", "intensity": 5},
-        {"name": "満足", "color": "#87ceeb", "intensity": 4},
-        {"name": "希望", "color": "#87ceeb", "intensity": 4}
-    ],
-    "穏やか": [
-        {"name": "安らぎ", "color": "#98fb98", "intensity": 4},
-        {"name": "穏やか", "color": "#98fb98", "intensity": 3},
-        {"name": "平静", "color": "#98fb98", "intensity": 3},
-        {"name": "感謝", "color": "#98fb98", "intensity": 4}
-    ],
-    "ニュートラル": [
-        {"name": "普通", "color": "#d3d3d3", "intensity": 2},
-        {"name": "退屈", "color": "#d3d3d3", "intensity": 2},
-        {"name": "疲労", "color": "#d3d3d3", "intensity": 1},
-        {"name": "混乱", "color": "#d3d3d3", "intensity": 1}
-    ],
-    "不安・心配": [
-        {"name": "不安", "color": "#ffdab9", "intensity": 1},
-        {"name": "心配", "color": "#ffdab9", "intensity": 1},
-        {"name": "少し憂鬱", "color": "#ffdab9", "intensity": 2},
-        {"name": "孤独", "color": "#ffdab9", "intensity": 1}
-    ],
-    "ネガティブ": [
-        {"name": "悲しみ", "color": "#ffc0cb", "intensity": 1},
-        {"name": "イライラ", "color": "#ffc0cb", "intensity": 1},
-        {"name": "怒り", "color": "#ffc0cb", "intensity": 0},
-        {"name": "絶望", "color": "#ffc0cb", "intensity": 0}
-    ]
+    "とても良い": {
+        "color": "#87ceeb",  # ソフトブルー
+        "moods": [
+            {"name": "最高", "intensity": 5},
+            {"name": "幸せ", "intensity": 5},
+            {"name": "大満足", "intensity": 5},
+            {"name": "感激", "intensity": 5},
+            {"name": "やる気満々", "intensity": 5}
+        ]
+    },
+    "良い": {
+        "color": "#98fb98",  # ミントグリーン
+        "moods": [
+            {"name": "嬉しい", "intensity": 4},
+            {"name": "楽しい", "intensity": 4},
+            {"name": "満足", "intensity": 4},
+            {"name": "前向き", "intensity": 4},
+            {"name": "充実", "intensity": 4}
+        ]
+    },
+    "普通": {
+        "color": "#d3d3d3",  # グレー
+        "moods": [
+            {"name": "普通", "intensity": 3},
+            {"name": "平静", "intensity": 3},
+            {"name": "落ち着き", "intensity": 3},
+            {"name": "まあまあ", "intensity": 3},
+            {"name": "いつも通り", "intensity": 3}
+        ]
+    },
+    "少し落ち込み": {
+        "color": "#ffdab9",  # ピーチクリーム
+        "moods": [
+            {"name": "少し疲れ", "intensity": 2},
+            {"name": "モヤモヤ", "intensity": 2},
+            {"name": "不安", "intensity": 2},
+            {"name": "心配", "intensity": 2},
+            {"name": "退屈", "intensity": 2}
+        ]
+    },
+    "落ち込み": {
+        "color": "#ffc0cb",  # パステルピンク
+        "moods": [
+            {"name": "悲しい", "intensity": 1},
+            {"name": "辛い", "intensity": 1},
+            {"name": "イライラ", "intensity": 1},
+            {"name": "落ち込み", "intensity": 1},
+            {"name": "憂鬱", "intensity": 1}
+        ]
+    }
 }
 
-# カスタムCSS（改良版）
+# カスタムCSS
 def get_css(theme_name="ソフトブルー"):
     theme = THEME_PALETTES.get(theme_name, THEME_PALETTES["ソフトブルー"])
     
@@ -193,6 +200,12 @@ def get_css(theme_name="ソフトブルー"):
         border-left: 4px solid {theme['primary']};
     }}
     
+    .goal-progress {{
+        font-size: 0.75rem;
+        opacity: 0.8;
+        margin-top: 4px;
+    }}
+    
     .floating-write-btn {{
         position: fixed;
         bottom: 30px;
@@ -214,6 +227,54 @@ def get_css(theme_name="ソフトブルー"):
         transform: translateY(-3px);
         box-shadow: 0 8px 35px {theme['shadow']};
         background: linear-gradient(135deg, {theme['secondary']} 0%, {theme['accent']} 100%);
+    }}
+    
+    /* 心模様選択セクション */
+    .mood-section {{
+        margin: 1.5rem 0;
+        padding: 1.2rem;
+        background: {theme['card']};
+        border-radius: 12px;
+        border: 1px solid {theme['border']};
+    }}
+    
+    .mood-section h4 {{
+        margin: 0 0 0.8rem 0;
+        color: {theme['text_primary']};
+        font-size: 1rem;
+        font-weight: 600;
+    }}
+    
+    .mood-circle {{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 8px;
+        border: 3px solid rgba(255,255,255,0.7);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        position: relative;
+    }}
+    
+    .mood-circle:hover {{
+        transform: scale(1.2);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+        border-color: {theme['primary']};
+    }}
+    
+    .mood-circle.selected {{
+        border: 4px solid {theme['primary']};
+        transform: scale(1.3);
+        box-shadow: 0 6px 25px {theme['shadow']};
+        animation: pulse 2s infinite;
+    }}
+    
+    @keyframes pulse {{
+        0% {{ transform: scale(1.3); }}
+        50% {{ transform: scale(1.35); }}
+        100% {{ transform: scale(1.3); }}
     }}
     
     .diary-entry {{
@@ -245,79 +306,24 @@ def get_css(theme_name="ソフトブルー"):
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }}
     
-    .mood-section {{
-        margin: 1rem 0;
-        padding: 1rem;
+    /* 行動プランカード */
+    .action-plan-card {{
         background: {theme['card']};
-        border-radius: 12px;
         border: 1px solid {theme['border']};
-    }}
-    
-    .mood-section h4 {{
-        margin: 0 0 0.5rem 0;
-        color: {theme['text_primary']};
-        font-size: 0.95rem;
-    }}
-    
-    .mood-circle {{
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        display: inline-block;
-        margin: 6px;
-        border: 2px solid rgba(255,255,255,0.7);
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }}
-    
-    .mood-circle:hover {{
-        transform: scale(1.15);
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        border-color: {theme['primary']};
-    }}
-    
-    .mood-circle.selected {{
-        border: 3px solid {theme['primary']};
-        transform: scale(1.2);
-        box-shadow: 0 4px 20px {theme['shadow']};
-    }}
-
-    .selected-mood-display {{
-        background: {theme['card']};
-        padding: 1rem;
         border-radius: 12px;
-        margin: 1rem 0;
-        border: 2px solid {theme['primary']};
-        text-align: center;
-    }}
-    
-    .action-plan {{
-        background: {theme['card']};
-        padding: 1.5rem;
-        border-radius: 16px;
-        margin: 1rem 0;
-        border: 1px solid {theme['border']};
-        backdrop-filter: blur(10px);
-        box-shadow: 0 4px 20px {theme['shadow']};
-    }}
-    
-    .action-item {{
-        background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.4) 100%);
-        padding: 0.8rem;
-        border-radius: 8px;
+        padding: 1rem;
         margin: 0.5rem 0;
-        border-left: 4px solid {theme['secondary']};
+        transition: all 0.3s ease;
     }}
     
-    .goal-period {{
-        display: inline-block;
-        background: {theme['primary']};
-        color: white;
-        padding: 0.3rem 0.8rem;
-        border-radius: 15px;
-        font-size: 0.8rem;
-        margin-right: 0.5rem;
+    .action-plan-card:hover {{
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px {theme['shadow']};
+    }}
+    
+    .action-plan-completed {{
+        background: linear-gradient(135deg, rgba(152, 251, 152, 0.2) 0%, rgba(144, 238, 144, 0.1) 100%);
+        border-color: #90ee90;
     }}
     
     .stats-card {{
@@ -335,78 +341,6 @@ def get_css(theme_name="ソフトブルー"):
     .stats-card:hover {{
         transform: translateY(-2px);
         box-shadow: 0 8px 30px {theme['shadow']};
-    }}
-
-    /* ボトムナビゲーション */
-    .bottom-nav {{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: {theme['card']};
-        border-top: 1px solid {theme['border']};
-        padding: 0.8rem 1rem;
-        z-index: 1000;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 -2px 20px {theme['shadow']};
-    }}
-    
-    .nav-container {{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        max-width: 600px;
-        margin: 0 auto;
-    }}
-    
-    .nav-item {{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        cursor: pointer;
-        padding: 0.5rem;
-        border-radius: 8px;
-        transition: all 0.2s ease;
-        color: {theme['text_secondary']};
-        text-decoration: none;
-        min-width: 60px;
-    }}
-    
-    .nav-item:hover {{
-        background: rgba(255, 255, 255, 0.1);
-        color: {theme['primary']};
-    }}
-    
-    .nav-item.active {{
-        color: {theme['primary']};
-        background: rgba(255, 255, 255, 0.15);
-    }}
-    
-    .nav-icon {{
-        font-size: 1.4rem;
-        margin-bottom: 0.2rem;
-    }}
-    
-    .nav-text {{
-        font-size: 0.7rem;
-        font-weight: 500;
-        text-align: center;
-    }}
-    
-    /* メインコンテンツの下部余白を追加 */
-    .main-content {{
-        padding-bottom: 100px;
-    }}
-    
-    /* サイドバーを非表示 */
-    .stSidebar {{
-        display: none !important;
-    }}
-    
-    /* メインコンテンツ幅を調整 */
-    .stAppViewContainer > .main > div {{
-        max-width: none !important;
-        padding: 1rem 2rem;
     }}
     
     /* 改良されたボタンスタイル */
@@ -452,6 +386,28 @@ def get_css(theme_name="ソフトブルー"):
         backdrop-filter: blur(5px);
         color: {theme['text_primary']};
     }}
+    
+    /* 目標達成度表示 */
+    .goal-achievement {{
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+    }}
+    
+    .achievement-bar {{
+        flex: 1;
+        height: 6px;
+        background: rgba(255,255,255,0.3);
+        border-radius: 3px;
+        overflow: hidden;
+    }}
+    
+    .achievement-fill {{
+        height: 100%;
+        background: linear-gradient(90deg, #90ee90 0%, #32cd32 100%);
+        transition: width 0.3s ease;
+    }}
 </style>
 """
 
@@ -460,9 +416,18 @@ class Goal:
     id: str
     title: str
     description: str
-    category: str  # "short", "medium", "long"
-    deadline: str
+    category: str  # "daily", "weekly", "monthly", "yearly"
     created_date: str
+    user_email: str = ""
+
+@dataclass
+class ActionPlan:
+    id: str
+    goal_id: str
+    title: str
+    description: str
+    completed: bool = False
+    created_date: str = ""
     user_email: str = ""
 
 @dataclass
@@ -483,6 +448,74 @@ class DiaryEntry:
     user_email: str = ""
     bot_response: str = ""
 
+def get_period_end_date(category: str) -> str:
+    """カテゴリに応じて自動的に期限を計算"""
+    today = datetime.date.today()
+    
+    if category == "daily":
+        return today.strftime("%Y-%m-%d")
+    elif category == "weekly":
+        # 今週の日曜日まで
+        days_until_sunday = (6 - today.weekday()) % 7
+        end_date = today + datetime.timedelta(days=days_until_sunday)
+        return end_date.strftime("%Y-%m-%d")
+    elif category == "monthly":
+        # 今月の最終日まで
+        if today.month == 12:
+            next_month = today.replace(year=today.year + 1, month=1, day=1)
+        else:
+            next_month = today.replace(month=today.month + 1, day=1)
+        end_date = next_month - datetime.timedelta(days=1)
+        return end_date.strftime("%Y-%m-%d")
+    else:  # yearly
+        # 今年の12月31日まで
+        end_date = today.replace(month=12, day=31)
+        return end_date.strftime("%Y-%m-%d")
+
+class ActionPlanManager:
+    def __init__(self, user_email: str = ""):
+        self.user_email = user_email
+        self.plans_file = f"action_plans_{hashlib.md5(user_email.encode()).hexdigest()}.json" if user_email else "action_plans.json"
+    
+    def load_plans(self) -> List[ActionPlan]:
+        try:
+            if os.path.exists(self.plans_file):
+                with open(self.plans_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+                    plans = []
+                    for plan_data in data:
+                        plans.append(ActionPlan(**plan_data))
+                    return plans
+        except:
+            pass
+        return []
+    
+    def save_plans(self, plans: List[ActionPlan]):
+        try:
+            with open(self.plans_file, 'w', encoding='utf-8') as f:
+                json.dump([asdict(plan) for plan in plans], f, ensure_ascii=False, indent=2)
+        except Exception as e:
+            st.error(f"行動プランの保存に失敗しました: {e}")
+    
+    def add_plan(self, plan: ActionPlan):
+        plan.user_email = self.user_email
+        plans = self.load_plans()
+        plans.append(plan)
+        self.save_plans(plans)
+    
+    def update_plan_status(self, plan_id: str, completed: bool):
+        plans = self.load_plans()
+        for plan in plans:
+            if plan.id == plan_id:
+                plan.completed = completed
+                break
+        self.save_plans(plans)
+    
+    def delete_plan(self, plan_id: str):
+        plans = self.load_plans()
+        plans = [plan for plan in plans if plan.id != plan_id]
+        self.save_plans(plans)
+
 class GoalManager:
     def __init__(self, user_email: str = ""):
         self.user_email = user_email
@@ -495,9 +528,9 @@ class GoalManager:
                     data = json.load(f)
                     goals = []
                     for goal_data in data:
-                        # 古いデータとの互換性のため進捗フィールドを除去
-                        if 'progress' in goal_data:
-                            del goal_data['progress']
+                        # 古いデータとの互換性のため
+                        if 'deadline' in goal_data:
+                            del goal_data['deadline']
                         goals.append(Goal(**goal_data))
                     return goals
         except:
@@ -547,7 +580,6 @@ class AuthManager:
                     data = json.load(f)
                     users = []
                     for user_data in data:
-                        # 古いデータとの互換性のためニックネームフィールドを追加
                         if 'nickname' not in user_data:
                             user_data['nickname'] = user_data['email'].split('@')[0]
                         users.append(User(**user_data))
@@ -637,85 +669,130 @@ class DiaryManager:
 
 class CounselingBot:
     def __init__(self):
-        try:
-            self.api_key = st.secrets.get("OPENAI_API_KEY", "")
-        except:
-            self.api_key = ""
+        pass
         
     def get_counseling_response(self, content: str, mood: str, mood_intensity: int, category: str) -> str:
         intensity_responses = {
-            0: "今はとても辛い時期ですね。あなたの痛みを心から受け止めています。一人ではありません。",
-            1: "大変な気持ちですね。そんな日もあります。無理をせず、自分を労ってあげてください。",
-            2: "少し重い気持ちなのですね。ゆっくりと深呼吸をして、今この瞬間を大切にしましょう。",
-            3: "穏やかな心持ちですね。この平静さを大切に、今日を過ごしてください。",
-            4: "良い気分のようですね。その明るい気持ちが、周りにも温かさを届けています。",
-            5: "素晴らしい気持ちが伝わってきます！この喜びを心に刻んで、明日への力にしてください。"
+            1: "辛い気持ちを抱えているのですね。でも、その気持ちを振り返って記録する勇気があることは素晴らしいです。一歩ずつ進んでいきましょう。",
+            2: "少し重い気持ちの時もありますね。そんな日もあって当然です。自分を責めず、優しく受け止めてあげてください。",
+            3: "穏やかな心持ちですね。この平静さを保ちながら、目標に向かって歩んでいきましょう。",
+            4: "前向きな気持ちが伝わってきます。この調子で目標達成に向けて進んでいけそうですね。",
+            5: "素晴らしい気持ちですね！この前向きなエネルギーを目標達成に活かしていきましょう。"
         }
         
-        base_response = intensity_responses.get(mood_intensity, "あなたの気持ちに、静かに寄り添っています。")
+        base_response = intensity_responses.get(mood_intensity, "今日もお疲れ様です。")
         
-        category_advice = {
-            "仕事・学業": "一歩ずつ、あなたのペースで進んでいけば大丈夫です。目標に向かって着実に歩んでいきましょう。",
-            "人間関係": "人との関わりは複雑ですが、あなたの誠実さは必ず相手に伝わります。自分らしさを大切にしてください。",
-            "恋愛": "心を開くことは勇気がいりますが、真っ直ぐな気持ちは美しいものです。時間をかけて育んでいきましょう。",
-            "家族": "家族だからこそ難しい面もありますね。お互いを思いやる気持ちがあれば、きっと理解し合えます。",
-            "健康": "心と体の声に耳を傾けることは大切です。無理をせず、自分に優しくしてあげてください。",
-            "その他": "どんな気持ちも、あなたにとって大切な感情です。その気持ちを大切にしながら歩んでいきましょう。"
-        }
+        goal_advice = "毎日の小さな積み重ねが、大きな目標達成につながります。今日も一歩前進できましたね。明日も自分のペースで続けていきましょう。"
         
-        advice = category_advice.get(category, "あなたなりのペースで、ゆっくりと歩んでいけば大丈夫です。")
-        
-        return f"{base_response}\n\n{advice}\n\n今日も一日お疲れ様でした。あなたの成長を応援しています 🌟"
+        return f"{base_response}\n\n{goal_advice}\n\nあなたの成長を心から応援しています 🌟"
 
-def goals_overview_widget(goal_manager: GoalManager):
-    """目標概要ウィジェット（常時表示、進捗バー削除）"""
+def goals_overview_widget(goal_manager: GoalManager, action_plan_manager: ActionPlanManager):
+    """目標概要ウィジェット（習慣化フォーカス）"""
     goals = goal_manager.load_goals()
+    action_plans = action_plan_manager.load_plans()
     
     if not goals:
         st.markdown("""
         <div class="goals-overview">
-            <h3 style="margin-bottom: 1rem; color: var(--primary-color);">🎯 まずは目標を設定しましょう</h3>
-            <p style="color: var(--text-secondary); margin: 0;">目標設定ページで短期・中期・長期の目標を設定してください</p>
+            <h3 style="margin-bottom: 1rem; color: var(--primary-color);">🎯 目標を設定して習慣化を始めましょう</h3>
+            <p style="color: var(--text-secondary); margin: 0;">まずは目標設定ページで今日・今週・今月・今年の目標を設定してください</p>
         </div>
         """, unsafe_allow_html=True)
         return
     
-    short_goals = [g for g in goals if g.category == "short"]
-    medium_goals = [g for g in goals if g.category == "medium"]
-    long_goals = [g for g in goals if g.category == "long"]
+    # カテゴリ別に分類
+    daily_goals = [g for g in goals if g.category == "daily"]
+    weekly_goals = [g for g in goals if g.category == "weekly"]
+    monthly_goals = [g for g in goals if g.category == "monthly"]
+    yearly_goals = [g for g in goals if g.category == "yearly"]
     
     goals_html = f"""
     <div class="goals-overview">
-        <h3 style="margin-bottom: 1rem;">🎯 現在の目標</h3>
+        <h3 style="margin-bottom: 1rem;">🎯 習慣化目標の進捗</h3>
     """
     
-    # 短期目標
-    if short_goals:
-        goals_html += "<h4 style='margin: 0.5rem 0; font-size: 0.9rem; opacity: 0.8;'>🔥 短期目標</h4>"
-        for goal in short_goals[:2]:  # 最大2つ表示
+    # 今日の目標
+    if daily_goals:
+        goals_html += "<h4 style='margin: 0.5rem 0; font-size: 0.9rem; opacity: 0.8;'>📅 今日の目標</h4>"
+        for goal in daily_goals[:2]:
+            goal_plans = [p for p in action_plans if p.goal_id == goal.id]
+            completed_plans = [p for p in goal_plans if p.completed]
+            
+            # 期限チェック
+            deadline = get_period_end_date(goal.category)
+            today = datetime.date.today().strftime("%Y-%m-%d")
+            is_deadline = deadline == today
+            
+            deadline_indicator = "🔔 今日が期限！振り返りを忘れずに" if is_deadline else ""
+            
             goals_html += f"""
             <div class="goal-item">
                 <div style="font-weight: 500; font-size: 0.9rem;">{goal.title}</div>
+                <div class="goal-progress">行動プラン: {len(completed_plans)}/{len(goal_plans)} 実行済み</div>
+                {f'<div style="color: #ff6b6b; font-size: 0.8rem; font-weight: 600; margin-top: 4px;">{deadline_indicator}</div>' if is_deadline else ''}
             </div>
             """
     
-    # 中期目標
-    if medium_goals:
-        goals_html += "<h4 style='margin: 0.5rem 0; font-size: 0.9rem; opacity: 0.8;'>📈 中期目標</h4>"
-        for goal in medium_goals[:2]:
+    # 今週の目標
+    if weekly_goals:
+        goals_html += "<h4 style='margin: 0.5rem 0; font-size: 0.9rem; opacity: 0.8;'>📊 今週の目標</h4>"
+        for goal in weekly_goals[:2]:
+            goal_plans = [p for p in action_plans if p.goal_id == goal.id]
+            completed_plans = [p for p in goal_plans if p.completed]
+            
+            deadline = get_period_end_date(goal.category)
+            today = datetime.date.today().strftime("%Y-%m-%d")
+            is_deadline = deadline == today
+            
+            deadline_indicator = "🔔 今日が期限！振り返りを忘れずに" if is_deadline else ""
+            
             goals_html += f"""
             <div class="goal-item">
                 <div style="font-weight: 500; font-size: 0.9rem;">{goal.title}</div>
+                <div class="goal-progress">行動プラン: {len(completed_plans)}/{len(goal_plans)} 実行済み</div>
+                {f'<div style="color: #ff6b6b; font-size: 0.8rem; font-weight: 600; margin-top: 4px;">{deadline_indicator}</div>' if is_deadline else ''}
             </div>
             """
     
-    # 長期目標
-    if long_goals:
-        goals_html += "<h4 style='margin: 0.5rem 0; font-size: 0.9rem; opacity: 0.8;'>🌟 長期目標</h4>"
-        for goal in long_goals[:1]:  # 1つだけ表示
+    # 今月の目標
+    if monthly_goals:
+        goals_html += "<h4 style='margin: 0.5rem 0; font-size: 0.9rem; opacity: 0.8;'>🗓️ 今月の目標</h4>"
+        for goal in monthly_goals[:2]:
+            goal_plans = [p for p in action_plans if p.goal_id == goal.id]
+            completed_plans = [p for p in goal_plans if p.completed]
+            
+            deadline = get_period_end_date(goal.category)
+            today = datetime.date.today().strftime("%Y-%m-%d")
+            is_deadline = deadline == today
+            
+            deadline_indicator = "🔔 今日が期限！振り返りを忘れずに" if is_deadline else ""
+            
             goals_html += f"""
             <div class="goal-item">
                 <div style="font-weight: 500; font-size: 0.9rem;">{goal.title}</div>
+                <div class="goal-progress">行動プラン: {len(completed_plans)}/{len(goal_plans)} 実行済み</div>
+                {f'<div style="color: #ff6b6b; font-size: 0.8rem; font-weight: 600; margin-top: 4px;">{deadline_indicator}</div>' if is_deadline else ''}
+            </div>
+            """
+    
+    # 今年の目標
+    if yearly_goals:
+        goals_html += "<h4 style='margin: 0.5rem 0; font-size: 0.9rem; opacity: 0.8;'>🌟 今年の目標</h4>"
+        for goal in yearly_goals[:1]:
+            goal_plans = [p for p in action_plans if p.goal_id == goal.id]
+            completed_plans = [p for p in goal_plans if p.completed]
+            
+            deadline = get_period_end_date(goal.category)
+            today = datetime.date.today().strftime("%Y-%m-%d")
+            is_deadline = deadline == today
+            
+            deadline_indicator = "🔔 今日が期限！振り返りを忘れずに" if is_deadline else ""
+            
+            goals_html += f"""
+            <div class="goal-item">
+                <div style="font-weight: 500; font-size: 0.9rem;">{goal.title}</div>
+                <div class="goal-progress">行動プラン: {len(completed_plans)}/{len(goal_plans)} 実行済み</div>
+                {f'<div style="color: #ff6b6b; font-size: 0.8rem; font-weight: 600; margin-top: 4px;">{deadline_indicator}</div>' if is_deadline else ''}
             </div>
             """
     
@@ -723,35 +800,50 @@ def goals_overview_widget(goal_manager: GoalManager):
     st.markdown(goals_html, unsafe_allow_html=True)
 
 def mood_selector():
-    """心模様選択UI（5つのカテゴリ別に整理）"""
+    """改良された心模様選択UI（5色分類版・直感的選択）"""
     st.subheader("今の心模様は？")
     
-    selected_mood = st.session_state.get('selected_mood', MOOD_OPTIONS["ポジティブ"][0])
+    selected_mood = st.session_state.get('selected_mood')
+    if not selected_mood:
+        st.session_state.selected_mood = {"name": "普通", "intensity": 3, "category": "普通"}
+        selected_mood = st.session_state.selected_mood
     
-    for category, moods in MOOD_OPTIONS.items():
+    for category, data in MOOD_OPTIONS.items():
         st.markdown(f'<div class="mood-section">', unsafe_allow_html=True)
         st.markdown(f"<h4>{category}</h4>", unsafe_allow_html=True)
         
-        cols = st.columns(4)
-        for i, mood in enumerate(moods):
+        # 各心模様の選択ボタン
+        cols = st.columns(len(data["moods"]))
+        for i, mood in enumerate(data["moods"]):
             with cols[i]:
-                is_selected = selected_mood['name'] == mood['name']
-                circle_class = "mood-circle selected" if is_selected else "mood-circle"
+                is_selected = selected_mood.get('name') == mood['name']
                 
+                # ボタンとして表示（見た目は円）
+                if st.button(
+                    mood['name'], 
+                    key=f"mood_{category}_{mood['name']}", 
+                    help=f"{mood['name']} (強度: {mood['intensity']}/5)",
+                    type="primary" if is_selected else "secondary"
+                ):
+                    st.session_state.selected_mood = {
+                        "name": mood['name'],
+                        "intensity": mood['intensity'],
+                        "category": category
+                    }
+                    st.rerun()
+                
+                # 視覚的な円を表示（選択状態を示す）
+                selected_class = "selected" if is_selected else ""
                 st.markdown(f"""
-                <div class="{circle_class}" 
-                     style="background-color: {mood['color']};" 
+                <div class="mood-circle {selected_class}" 
+                     style="background-color: {data['color']}; margin: 4px auto; display: block;" 
                      title="{mood['name']}">
                 </div>
                 """, unsafe_allow_html=True)
-                
-                if st.button(mood['name'], key=f"mood_{mood['name']}", help=f"強度: {mood['intensity']}/5"):
-                    st.session_state.selected_mood = mood
-                    st.rerun()
         
         st.markdown('</div>', unsafe_allow_html=True)
     
-    return selected_mood
+    return st.session_state.selected_mood
 
 def login_page():
     """ログイン・新規登録ページ"""
@@ -805,140 +897,202 @@ def login_page():
                 else:
                     st.error("すべてのフィールドを入力してください")
 
-def goals_page(goal_manager: GoalManager):
-    """目標設定・管理ページ（進捗機能削除）"""
-    st.header("🎯 目標設定・管理")
+def goals_page(goal_manager: GoalManager, action_plan_manager: ActionPlanManager):
+    """目標設定・管理ページ（習慣化フォーカス、期限自動計算）"""
+    st.header("🎯 習慣化目標の設定・管理")
     
-    goals = goal_manager.load_goals()
+    tab1, tab2 = st.tabs(["🎯 目標設定", "📋 行動習慣プラン"])
     
-    # 新しい目標追加
-    with st.expander("➕ 新しい目標を追加", expanded=not goals):
-        with st.form("add_goal_form"):
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                goal_title = st.text_input("目標タイトル", placeholder="例：英語の勉強を習慣化する")
-                goal_category = st.selectbox("期間", ["today", "week", "month","year"], 
-                                           format_func=lambda x: {"today": "今日の目標", 
-                                                                 "week": "今週の目標", 
-                                                                 "month": "今月の目標",
-                                                                 "year":"今年の目標"}[x])
-            
-            with col2:
-                goal_deadline = st.date_input("期限", min_value=datetime.date.today())
-            
-            goal_description = st.text_area("詳細説明（任意）", placeholder="具体的な目標内容、達成方法など")
-            
-            if st.form_submit_button("目標を追加", type="primary"):
-                if goal_title:
-                    new_goal = Goal(
-                        id=hashlib.md5(f"{goal_title}{datetime.datetime.now()}".encode()).hexdigest(),
-                        title=goal_title,
-                        description=goal_description or "",
-                        category=goal_category,
-                        deadline=goal_deadline.strftime("%Y-%m-%d"),
-                        action_plans=[],
-                        created_date=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                    )
-                    goal_manager.add_goal(new_goal)
-                    st.success("目標が追加されました！")
-                    st.rerun()
-                else:
-                    st.error("タイトルを入力してください")
-    
-    # 既存の目標表示・編集
-    if goals:
-        st.subheader("📋 現在の目標")
+    with tab1:
+        goals = goal_manager.load_goals()
         
-        # カテゴリ別に分けて表示
-        categories = {
-            "today": {"name": "今日の目標", "goals": []},
-            "week": {"name": "今週の目標", "goals": []},
-            "month": {"name": "今月の目標", "goals": []},
-            "year":{"name":"今年の目標","goals":[]}
-        }
+        st.info("💡 **習慣化のコツ**: 小さく始めて継続することが重要です。無理のない目標から始めましょう。")
         
-        for goal in goals:
-            categories[goal.category]["goals"].append(goal)
-        
-        for category, data in categories.items():
-            if data["goals"]:
-                st.markdown(f"### {data['name']}")
+        # 新しい目標追加
+        with st.expander("➕ 新しい習慣化目標を追加", expanded=not goals):
+            with st.form("add_goal_form"):
+                col1, col2 = st.columns(2)
                 
-                for goal in data["goals"]:
-                    with st.expander(f"{goal.title}"):
-                        col1, col2 = st.columns([3, 1])
+                with col1:
+                    goal_title = st.text_input("習慣化したい目標", placeholder="例：毎日30分読書する")
+                    goal_category = st.selectbox("達成期間", ["daily", "weekly", "monthly", "yearly"], 
+                                               format_func=lambda x: {
+                                                   "daily": "📅 毎日の習慣 (今日中に実行)",
+                                                   "weekly": "📊 週間目標 (今週中に達成)", 
+                                                   "monthly": "🗓️ 月間目標 (今月中に達成)", 
+                                                   "yearly": "🌟 年間目標 (今年中に達成)"
+                                               }[x])
+                
+                with col2:
+                    # 期間の説明のみ表示（期限は表示しない）
+                    period_description = {
+                        "daily": "毎日継続する習慣として設定されます",
+                        "weekly": "今週中に達成する目標として設定されます",
+                        "monthly": "今月中に達成する目標として設定されます",
+                        "yearly": "今年中に達成する目標として設定されます"
+                    }[goal_category]
+                    
+                    st.write("**設定内容:**")
+                    st.info(period_description)
+                
+                goal_description = st.text_area("詳細・なぜこの目標を達成したいか", 
+                                              placeholder="この目標を達成する理由、期待する効果、具体的な方法など...")
+                
+                if st.form_submit_button("習慣化目標を追加", type="primary"):
+                    if goal_title:
+                        new_goal = Goal(
+                            id=hashlib.md5(f"{goal_title}{datetime.datetime.now()}".encode()).hexdigest(),
+                            title=goal_title,
+                            description=goal_description or "",
+                            category=goal_category,
+                            created_date=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        )
+                        goal_manager.add_goal(new_goal)
+                        st.success("目標が追加されました！次に行動プランを作成しましょう。")
+                        st.rerun()
+                    else:
+                        st.error("目標タイトルを入力してください")
+        
+        # 既存の目標表示・編集
+        if goals:
+            st.subheader("📋 現在の習慣化目標")
+            
+            # カテゴリ別に分けて表示
+            categories = {
+                "daily": {"name": "📅 毎日の習慣", "goals": []},
+                "weekly": {"name": "📊 週間目標", "goals": []},
+                "monthly": {"name": "🗓️ 月間目標", "goals": []},
+                "yearly": {"name": "🌟 年間目標", "goals": []}
+            }
+            
+            for goal in goals:
+                categories[goal.category]["goals"].append(goal)
+            
+            for category, data in categories.items():
+                if data["goals"]:
+                    st.markdown(f"### {data['name']}")
+                    
+                    for goal in data["goals"]:
+                        with st.expander(f"{goal.title}"):
+                            col1, col2 = st.columns([3, 1])
+                            
+                            with col1:
+                                if goal.description:
+                                    st.write(f"**詳細:** {goal.description}")
+                                
+                                # 自動期限を表示（削除）
+                                auto_deadline = get_period_end_date(goal.category)
+                                st.write(f"**期限:** {auto_deadline}")
+                                st.write(f"**作成日:** {goal.created_date}")
+                                
+                                # 行動プラン数を表示（%削除）
+                                goal_plans = [p for p in action_plan_manager.load_plans() if p.goal_id == goal.id]
+                                completed_plans = [p for p in goal_plans if p.completed]
+                                
+                                st.write(f"**行動プラン:** {len(completed_plans)}/{len(goal_plans)} 実行済み")
+                            
+                            with col2:
+                                if st.button("削除", key=f"delete_{goal.id}"):
+                                    goal_manager.delete_goal(goal.id)
+                                    # 関連する行動プランも削除
+                                    plans = action_plan_manager.load_plans()
+                                    remaining_plans = [p for p in plans if p.goal_id != goal.id]
+                                    action_plan_manager.save_plans(remaining_plans)
+                                    st.success("目標を削除しました！")
+                                    st.rerun()
+        else:
+            st.info("まだ目標が設定されていません。上記のフォームから最初の習慣化目標を追加してください。")
+    
+    with tab2:
+        # 行動プラン管理
+        goals = goal_manager.load_goals()
+        action_plans = action_plan_manager.load_plans()
+        
+        if not goals:
+            st.info("まず目標を設定してから行動習慣プランを作成してください。")
+            return
+        
+        st.info("💡 **行動習慣プランのコツ**: 具体的で実行しやすい小さな行動に分解することが成功の鍵です。")
+        
+        # 新しい行動プラン追加
+        with st.expander("➕ 新しい行動習慣プランを追加", expanded=not action_plans):
+            with st.form("add_action_plan_form"):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    selected_goal = st.selectbox(
+                        "どの目標の行動プランですか？",
+                        goals,
+                        format_func=lambda x: f"{x.title} ({{'daily': '毎日', 'weekly': '週間', 'monthly': '月間', 'yearly': '年間'}}[x.category])"
+                    )
+                    plan_title = st.text_input("行動習慣プランのタイトル", placeholder="例：朝食後に15分読書")
+                
+                with col2:
+                    plan_description = st.text_area("具体的な実行方法", 
+                                                  placeholder="いつ、どこで、どのように実行するかを具体的に...")
+                
+                if st.form_submit_button("行動習慣プランを追加", type="primary"):
+                    if selected_goal and plan_title:
+                        new_plan = ActionPlan(
+                            id=hashlib.md5(f"{plan_title}{datetime.datetime.now()}".encode()).hexdigest(),
+                            goal_id=selected_goal.id,
+                            title=plan_title,
+                            description=plan_description or "",
+                            completed=False,
+                            created_date=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        )
+                        action_plan_manager.add_plan(new_plan)
+                        st.success("行動習慣プランが追加されました！")
+                        st.rerun()
+                    else:
+                        st.error("目標とタイトルを入力してください")
+        
+        # 既存の行動プラン表示
+        if action_plans:
+            st.subheader("📋 行動習慣プラン一覧")
+            
+            # 目標別に行動プランをグループ化
+            for goal in goals:
+                goal_plans = [p for p in action_plans if p.goal_id == goal.id]
+                if goal_plans:
+                    completion_rate = len([p for p in goal_plans if p.completed]) / len(goal_plans) * 100
+                    
+                    st.markdown(f"### {goal.title} (達成率: {completion_rate:.0f}%)")
+                    
+                    for plan in goal_plans:
+                        plan_class = "action-plan-completed" if plan.completed else ""
+                        
+                        st.markdown(f'<div class="action-plan-card {plan_class}">', unsafe_allow_html=True)
+                        
+                        col1, col2, col3 = st.columns([4, 1, 1])
                         
                         with col1:
-                            if goal.description:
-                                st.write(f"**説明:** {goal.description}")
-                            st.write(f"**期限:** {goal.deadline}")
-                            st.write(f"**作成日:** {goal.created_date}")
+                            st.write(f"**{plan.title}**")
+                            if plan.description:
+                                st.write(f"*{plan.description}*")
                         
                         with col2:
-                            if st.button("削除", key=f"delete_{goal.id}"):
-                                goal_manager.delete_goal(goal.id)
-                                st.success("目標を削除しました！")
+                            current_status = plan.completed
+                            new_status = st.checkbox("完了", value=current_status, key=f"plan_status_{plan.id}")
+                            if new_status != current_status:
+                                action_plan_manager.update_plan_status(plan.id, new_status)
                                 st.rerun()
-
-                        st.markdown("---")
                         
-                        # アクションプラン追加
-                        with st.form(f"add_action_{goal.id}"):
-                            st.markdown("**📋 アクションプランを追加**")
-                            col_a, col_b = st.columns([2, 1])
-                            
-                            with col_a:
-                                action_text = st.text_input("具体的な行動", placeholder="例：朝7時に起きて読書を30分する", key=f"action_{goal.id}")
-                            with col_b:
-                                action_deadline = st.date_input("実行期限", min_value=datetime.date.today(), key=f"deadline_{goal.id}")
-                            
-                            if st.form_submit_button("アクションプラン追加", key=f"add_action_btn_{goal.id}"):
-                                if action_text:
-                                    new_action = ActionPlan(
-                                        id=hashlib.md5(f"{action_text}{datetime.datetime.now()}".encode()).hexdigest(),
-                                        goal_id=goal.id,
-                                        action=action_text,
-                                        deadline=action_deadline.strftime("%Y-%m-%d"),
-                                        completed=False,
-                                        created_date=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                                    )
-                                    goal_manager.add_action_plan(new_action)
-                                    st.success("アクションプランを追加しました！")
-                                    st.rerun()
+                        with col3:
+                            if st.button("削除", key=f"delete_plan_{plan.id}"):
+                                action_plan_manager.delete_plan(plan.id)
+                                st.success("行動習慣プランを削除しました！")
+                                st.rerun()
                         
-                        # 既存のアクションプラン表示
-                        if actions:
-                            st.markdown("**📝 アクションプラン一覧**")
-                            for action in actions:
-                                col_x, col_y = st.columns([4, 1])
-                                
-                                with col_x:
-                                    status_icon = "✅" if action.completed else "⏳"
-                                    status_style = "text-decoration: line-through; opacity: 0.6;" if action.completed else ""
-                                    
-                                    st.markdown(f"""
-                                    <div class="action-item" style="{status_style}">
-                                        {status_icon} <strong>{action.action}</strong><br>
-                                        <small>期限: {action.deadline}</small>
-                                    </div>
-                                    """, unsafe_allow_html=True)
-                                
-                                with col_y:
-                                    button_text = "完了取消" if action.completed else "完了"
-                                    if st.button(button_text, key=f"toggle_{action.id}"):
-                                        goal_manager.toggle_action_completion(action.id)
-                                        st.rerun()
-                        else:
-                            st.info("まだアクションプランがありません。上記のフォームから追加してください。")
-    else:
-        st.info("まだ目標が設定されていません。上記のフォームから目標を追加してください。")
+                        st.markdown('</div>', unsafe_allow_html=True)
+        else:
+            st.info("まだ行動習慣プランが作成されていません。上記のフォームから行動習慣プランを追加してください。")
 
-def write_diary_page(diary_manager: DiaryManager, bot: CounselingBot, goal_manager: GoalManager):
+def write_diary_page(diary_manager: DiaryManager, bot: CounselingBot, goal_manager: GoalManager, action_plan_manager: ActionPlanManager):
     st.header("✍️ 今日の振り返り")
     
     # 目標概要を常時表示
-    goals_overview_widget(goal_manager)
+    goals_overview_widget(goal_manager, action_plan_manager)
     
     if 'diary_saved' not in st.session_state:
         st.session_state.diary_saved = False
@@ -950,21 +1104,27 @@ def write_diary_page(diary_manager: DiaryManager, bot: CounselingBot, goal_manag
         
         category = st.selectbox(
             "🏷️ カテゴリ",
-            ["仕事・学業", "人間関係", "恋愛", "家族", "健康", "その他"]
+            ["目標達成・習慣化", "仕事・学業", "人間関係", "恋愛", "家族", "健康", "その他"]
         )
         
         content = st.text_area(
             "📝 今日の振り返り",
             height=200,
-            placeholder="今日の出来事、感じたこと、学んだこと、目標への進捗など... 自由に書いてください。"
+            placeholder="""今日の出来事、感じたこと、学んだことを自由に書いてください。
+
+特に以下について振り返ってみましょう：
+• 設定した目標に向けてどんな行動ができましたか？
+• 習慣化したい行動は実行できましたか？
+• 今日の気持ちや体調はいかがでしたか？
+• 明日はどんなことを意識したいですか？"""
         )
     
     with col2:
         selected_mood = mood_selector()
     
-    if st.button("💝 記録して相談する", type="primary"):
+    if st.button("💝 記録して振り返りのアドバイスをもらう", type="primary"):
         if title and content and selected_mood:
-            with st.spinner("あなたの気持ちに寄り添っています..."):
+            with st.spinner("あなたの振り返りを分析しています..."):
                 bot_response = bot.get_counseling_response(
                     content, 
                     selected_mood['name'], 
@@ -988,7 +1148,7 @@ def write_diary_page(diary_manager: DiaryManager, bot: CounselingBot, goal_manag
             st.success("記録が保存されました！")
             
             st.markdown('<div class="bot-response">', unsafe_allow_html=True)
-            st.markdown("### 🤖 今日のメッセージ")
+            st.markdown("### 🤖 今日の振り返りアドバイス")
             st.write(bot_response)
             st.markdown('</div>', unsafe_allow_html=True)
             
@@ -1014,25 +1174,26 @@ def write_diary_page(diary_manager: DiaryManager, bot: CounselingBot, goal_manag
                 st.session_state.current_page = "📚 記録を振り返る"
                 st.rerun()
 
-def history_page(diary_manager: DiaryManager, goal_manager: GoalManager):
-    """記録振り返りページ（グラフ削除、シンプルに）"""
-    st.header("📚 記録を振り返る")
+def history_page(diary_manager: DiaryManager, goal_manager: GoalManager, action_plan_manager: ActionPlanManager):
+    """記録振り返りページ（習慣化フォーカス）"""
+    st.header("📚 習慣化の記録を振り返る")
     
     # 目標概要を表示
-    goals_overview_widget(goal_manager)
+    goals_overview_widget(goal_manager, action_plan_manager)
     
     entries = diary_manager.load_entries()
     
     if not entries:
-        st.info("まだ記録がありません。今日から始めてみましょう。")
+        st.info("まだ記録がありません。今日から習慣化ジャーナルを始めてみましょう。")
         return
     
-    # 統計カード（シンプル化）
-    col1, col2, col3 = st.columns(3)
+    # 習慣化統計カード
+    col1, col2, col3, col4 = st.columns(4)
     
     with col1:
         st.markdown('<div class="stats-card">', unsafe_allow_html=True)
-        st.metric("記録日数", len(entries))
+        st.metric("継続日数", len(entries))
+        st.caption("ジャーナル記録")
         st.markdown('</div>', unsafe_allow_html=True)
     
     with col2:
@@ -1040,12 +1201,23 @@ def history_page(diary_manager: DiaryManager, goal_manager: GoalManager):
             avg_mood = sum(entry.mood_intensity for entry in entries) / len(entries)
             st.markdown('<div class="stats-card">', unsafe_allow_html=True)
             st.metric("平均気分", f"{avg_mood:.1f}/5")
+            st.caption("心の健康度")
             st.markdown('</div>', unsafe_allow_html=True)
     
     with col3:
         goals = goal_manager.load_goals()
         st.markdown('<div class="stats-card">', unsafe_allow_html=True)
         st.metric("設定目標数", len(goals))
+        st.caption("習慣化目標")
+        st.markdown('</div>', unsafe_allow_html=True)
+    
+    with col4:
+        action_plans = action_plan_manager.load_plans()
+        completed_plans = [p for p in action_plans if p.completed]
+        completion_rate = len(completed_plans) / len(action_plans) * 100 if action_plans else 0
+        st.markdown('<div class="stats-card">', unsafe_allow_html=True)
+        st.metric("習慣達成率", f"{completion_rate:.1f}%")
+        st.caption(f"{len(completed_plans)}/{len(action_plans)} 完了")
         st.markdown('</div>', unsafe_allow_html=True)
     
     # 検索・フィルター
@@ -1053,11 +1225,12 @@ def history_page(diary_manager: DiaryManager, goal_manager: GoalManager):
     with col1:
         search_term = st.text_input("🔍 記録を検索", placeholder="キーワードで検索...")
     with col2:
-        filter_category = st.selectbox("カテゴリで絞る", ["すべて"] + ["仕事・学業", "人間関係", "恋愛", "家族", "健康", "その他"])
+        filter_category = st.selectbox("カテゴリで絞る", 
+                                     ["すべて"] + ["目標達成・習慣化", "仕事・学業", "人間関係", "恋愛", "家族", "健康", "その他"])
     with col3:
-        # 感情カテゴリでフィルター
+        # 気分の範囲でフィルター
         mood_categories = list(MOOD_OPTIONS.keys())
-        filter_mood_cat = st.selectbox("気持ちで絞る", ["すべて"] + mood_categories)
+        mood_filter = st.selectbox("気分で絞る", ["すべて"] + mood_categories)
     
     # フィルタリング
     filtered_entries = entries
@@ -1065,9 +1238,9 @@ def history_page(diary_manager: DiaryManager, goal_manager: GoalManager):
         filtered_entries = [e for e in filtered_entries if search_term.lower() in e.content.lower() or search_term.lower() in e.title.lower()]
     if filter_category != "すべて":
         filtered_entries = [e for e in filtered_entries if e.category == filter_category]
-    if filter_mood_cat != "すべて":
+    if mood_filter != "すべて":
         # 選択された感情カテゴリの心模様名リストを取得
-        category_moods = [mood['name'] for mood in MOOD_OPTIONS[filter_mood_cat]]
+        category_moods = [mood['name'] for mood in MOOD_OPTIONS[mood_filter]["moods"]]
         filtered_entries = [e for e in filtered_entries if e.mood in category_moods]
     
     # エントリー表示
@@ -1076,10 +1249,10 @@ def history_page(diary_manager: DiaryManager, goal_manager: GoalManager):
     for entry in reversed(filtered_entries):
         # 心模様の色を取得
         mood_color = "#d3d3d3"  # デフォルト色
-        for category, moods in MOOD_OPTIONS.items():
-            for mood in moods:
+        for category, data in MOOD_OPTIONS.items():
+            for mood in data["moods"]:
                 if mood['name'] == entry.mood:
-                    mood_color = mood['color']
+                    mood_color = data['color']
                     break
         
         with st.expander(f"{entry.mood} {entry.title} - {entry.date.split()[0]}"):
@@ -1094,7 +1267,7 @@ def history_page(diary_manager: DiaryManager, goal_manager: GoalManager):
             st.write(entry.content)
             
             if entry.bot_response:
-                st.markdown("**🤖 その時のメッセージ:**")
+                st.markdown("**🤖 その時の振り返りアドバイス:**")
                 st.info(entry.bot_response)
 
 def main():
@@ -1110,7 +1283,7 @@ def main():
     if 'current_page' not in st.session_state:
         st.session_state.current_page = "✍️ 今日の振り返り"
     if 'selected_mood' not in st.session_state:
-        st.session_state.selected_mood = MOOD_OPTIONS["ポジティブ"][0]
+        st.session_state.selected_mood = {"name": "普通", "intensity": 3, "category": "普通"}
     
     # ログインチェック
     if not st.session_state.logged_in:
@@ -1120,23 +1293,41 @@ def main():
     # CSS適用
     st.markdown(get_css(st.session_state.theme_name), unsafe_allow_html=True)
     
-    # フローティング日記ボタン
+    # フローティング日記ボタン（修正版）
     if st.session_state.get('current_page') != "✍️ 今日の振り返り":
+        # JavaScriptを使って確実にページ遷移させる
         st.markdown("""
-        <div class="floating-write-btn" onclick="location.reload();">
+        <div class="floating-write-btn" onclick="changeToWritePage();">
             ✍️ 振り返り
         </div>
+        <script>
+        function changeToWritePage() {
+            // Streamlitの内部で使えるrerunを呼び出す
+            window.parent.postMessage({
+                type: 'streamlit:setComponentValue',
+                data: {
+                    key: 'change_page',
+                    value: 'write_diary'
+                }
+            }, '*');
+        }
+        </script>
         """, unsafe_allow_html=True)
+        
+        # 隠しボタンでページ遷移を処理
+        if st.button("", key="hidden_write_button", help="振り返りページへ"):
+            st.session_state.current_page = "✍️ 今日の振り返り"
+            st.rerun()
     
     st.markdown('<h1 class="main-header">🎯 習慣化ジャーナル</h1>', unsafe_allow_html=True)
     st.markdown('<div class="subtitle">目標達成と心の成長をサポート</div>', unsafe_allow_html=True)
     
-    # ヘッダーコントロール（リフレッシュボタン削除）
+    # ヘッダーコントロール
     col1, col2, col3 = st.columns([3, 1, 1])
     with col1:
         st.write(f"こんにちは、{st.session_state.user_nickname}さん")
     with col2:
-        # テーマ変更（ワンボタン）
+        # テーマ変更
         if st.button("🎨", help="テーマ変更"):
             themes = list(THEME_PALETTES.keys())
             current_idx = themes.index(st.session_state.theme_name) if st.session_state.theme_name in themes else 0
@@ -1150,14 +1341,43 @@ def main():
             st.session_state.user_nickname = ""
             st.rerun()
     
-    # サイドバー（シンプルに）
+    # サイドバー
     st.sidebar.title("📝 メニュー")
     
+    # selectboxを無効化するCSS（より確実な方法）
+    st.markdown("""
+    <style>
+    .stSelectbox label {
+        pointer-events: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+    }
+    .stSelectbox label p {
+        pointer-events: none !important;
+        user-select: none !important;
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+    }
+    .stSelectbox [data-testid="stMarkdownContainer"] {
+        pointer-events: none !important;
+        user-select: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    
+    # 固定ラベルでselectboxを表示
     page = st.sidebar.selectbox(
-        "ページを選択",
+        ".", # 最小限のラベル
         ["✍️ 今日の振り返り", "🎯 目標設定・管理", "📚 記録を振り返る", "🔧 設定"],
-        index=0
+        index=0,
+        label_visibility="collapsed"  # ラベルを非表示
     )
+    
+    # サイドバーにページ選択説明を追加
+    st.sidebar.markdown("**ページを選択:**")
     
     if page != st.session_state.current_page:
         st.session_state.current_page = page
@@ -1165,15 +1385,16 @@ def main():
     # インスタンス作成
     diary_manager = DiaryManager(st.session_state.user_email)
     goal_manager = GoalManager(st.session_state.user_email)
+    action_plan_manager = ActionPlanManager(st.session_state.user_email)
     bot = CounselingBot()
     
     # ページルーティング
     if page == "✍️ 今日の振り返り":
-        write_diary_page(diary_manager, bot, goal_manager)
+        write_diary_page(diary_manager, bot, goal_manager, action_plan_manager)
     elif page == "🎯 目標設定・管理":
-        goals_page(goal_manager)
+        goals_page(goal_manager, action_plan_manager)
     elif page == "📚 記録を振り返る":
-        history_page(diary_manager, goal_manager)
+        history_page(diary_manager, goal_manager, action_plan_manager)
     else:
         st.header("🔧 設定")
         st.markdown(f"""
@@ -1185,7 +1406,55 @@ def main():
         {', '.join(THEME_PALETTES.keys())}
         
         テーマは画面上部の🎨ボタンで切り替えできます。
+        
+        **📊 あなたの習慣化統計:**
         """)
+        
+        # 習慣化統計表示
+        entries = diary_manager.load_entries()
+        goals = goal_manager.load_goals()
+        action_plans = action_plan_manager.load_plans()
+        
+        if entries or goals or action_plans:
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.metric("総記録日数", len(entries))
+                if entries:
+                    avg_mood = sum(entry.mood_intensity for entry in entries) / len(entries)
+                    st.metric("平均気分スコア", f"{avg_mood:.1f}/5")
+                
+                # 継続率計算（過去7日）
+                recent_entries = [e for e in entries if (datetime.datetime.now() - datetime.datetime.strptime(e.date.split()[0], "%Y-%m-%d")).days <= 7]
+                continuation_rate = len(recent_entries) / 7 * 100
+                st.metric("週間継続率", f"{continuation_rate:.1f}%")
+            
+            with col2:
+                st.metric("設定目標数", len(goals))
+                daily_goals = [g for g in goals if g.category == "daily"]
+                weekly_goals = [g for g in goals if g.category == "weekly"]
+                monthly_goals = [g for g in goals if g.category == "monthly"]
+                yearly_goals = [g for g in goals if g.category == "yearly"]
+                
+                st.write(f"📅 毎日の習慣: {len(daily_goals)}個")
+                st.write(f"📊 週間目標: {len(weekly_goals)}個")
+                st.write(f"🗓️ 月間目標: {len(monthly_goals)}個")
+                st.write(f"🌟 年間目標: {len(yearly_goals)}個")
+            
+            with col3:
+                st.metric("行動プラン数", len(action_plans))
+                completed_plans = [p for p in action_plans if p.completed]
+                completion_rate = len(completed_plans) / len(action_plans) * 100 if action_plans else 0
+                st.metric("全体達成率", f"{completion_rate:.1f}%")
+                
+                # カテゴリ別達成率
+                if daily_goals:
+                    daily_plans = [p for p in action_plans for g in daily_goals if p.goal_id == g.id]
+                    daily_completed = [p for p in daily_plans if p.completed]
+                    daily_rate = len(daily_completed) / len(daily_plans) * 100 if daily_plans else 0
+                    st.write(f"📅 毎日の習慣達成率: {daily_rate:.1f}%")
+        else:
+            st.info("まだデータがありません。習慣化ジャーナルを始めましょう！")
 
 if __name__ == "__main__":
     main()
